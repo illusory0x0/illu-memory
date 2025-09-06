@@ -32,7 +32,7 @@ The `View[T]` type provides typed access to memory regions, allowing you to work
 ```moonbit
 test "basic view operations" {
   let memory = @memory.Memory::make(16, 0)
-  let int_view : View[Int] = View::from_memory(memory)
+  let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   
   // Store integers in little-endian format
   int_view[0] = 0x12345678
@@ -55,7 +55,7 @@ test "32-bit integer operations" {
   let memory = @memory.Memory::make(16, 0)
   
   // Signed integers
-  let int_view : View[Int] = View::from_memory(memory)
+  let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   int_view[0] = -2147483648  // Int32 min
   int_view[1] = 2147483647   // Int32 max
   
@@ -64,7 +64,7 @@ test "32-bit integer operations" {
   
   // Unsigned integers
   let memory2 = @memory.Memory::make(16, 0)
-  let uint_view : View[UInt] = View::from_memory(memory2)
+  let uint_view : @memory.View[UInt] = @memory.View::from_memory(memory2)
   uint_view[0] = 0xFFFFFFFFU
   uint_view[1] = 0x12345678U
   
@@ -85,7 +85,7 @@ test "16-bit integer operations" {
   memory[2] = 255U.to_byte()  // Low byte of 32767
   memory[3] = 127U.to_byte()  // High byte of 32767
   
-  let int16_view : View[Int16] = View::from_memory(memory)
+  let int16_view : @memory.View[Int16] = @memory.View::from_memory(memory)
   inspect(int16_view[0], content="1")
   inspect(int16_view[1], content="32767")
   inspect(int16_view.length(), content="8") // 16 bytes / 2 bytes per Int16
@@ -95,7 +95,7 @@ test "16-bit integer operations" {
   memory2[0] = 210U.to_byte()  // 0xD2 - low byte of 1234
   memory2[1] = 4U.to_byte()    // 0x04 - high byte of 1234
   
-  let uint16_view : View[UInt16] = View::from_memory(memory2)
+  let uint16_view : @memory.View[UInt16] = @memory.View::from_memory(memory2)
   inspect(uint16_view[0], content="1234")
 }
 ```
@@ -107,7 +107,7 @@ test "64-bit integer operations" {
   let memory = @memory.Memory::make(32, 0)
   
   // Signed 64-bit integers
-  let int64_view : View[Int64] = View::from_memory(memory)
+  let int64_view : @memory.View[Int64] = @memory.View::from_memory(memory)
   int64_view[0] = 9223372036854775807L   // Int64 max
   int64_view[1] = (-9223372036854775808L) // Int64 min
   int64_view[2] = 1234567890123456789L
@@ -119,7 +119,7 @@ test "64-bit integer operations" {
   
   // Unsigned 64-bit integers
   let memory2 = @memory.Memory::make(32, 0)
-  let uint64_view : View[UInt64] = View::from_memory(memory2)
+  let uint64_view : @memory.View[UInt64] = @memory.View::from_memory(memory2)
   uint64_view[0] = 18446744073709551615UL  // UInt64 max
   uint64_view[1] = 0xFEDCBA9876543210UL
   
@@ -135,7 +135,7 @@ All data is stored in little-endian format, which is important when working with
 ```moonbit
 test "little-endian memory layout" {
   let memory = @memory.Memory::make(8, 0)
-  let int_view : View[Int] = View::from_memory(memory)
+  let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   
   // Store a known value
   int_view[0] = 0x12345678
@@ -160,12 +160,12 @@ test "type reinterpretation" {
   let memory = @memory.Memory::make(16, 0)
   
   // Write as signed integers
-  let int_view : View[Int] = View::from_memory(memory)
+  let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   int_view[0] = -1
   int_view[1] = 0x12345678
   
   // Reinterpret as unsigned integers
-  let uint_view : View[UInt] = View::from_memory(int_view.to_memory())
+  let uint_view : @memory.View[UInt] = @memory.View::from_memory(int_view.to_memory())
   inspect(uint_view[0], content="4294967295") // -1 as UInt32
   inspect(uint_view[1], content="305419896")  // Same bit pattern
 }
@@ -188,12 +188,12 @@ test "mixed size operations" {
   memory[3] = 86U.to_byte()   // 0x56
   
   // Read as 16-bit values
-  let int16_view : View[Int16] = View::from_memory(memory)
+  let int16_view : @memory.View[Int16] = @memory.View::from_memory(memory)
   inspect(int16_view[0], content="4660")  // 0x1234
   inspect(int16_view[1], content="22136") // 0x5678
   
   // Read the same memory as 32-bit values
-  let int_view : View[Int] = View::from_memory(int16_view.to_memory())
+  let int_view : @memory.View[Int] = @memory.View::from_memory(int16_view.to_memory())
   inspect(int_view[0], content="1450709556") // 0x56781234
 }
 ```
@@ -205,7 +205,7 @@ Memory blocks are properly zero-initialized when created.
 ```moonbit
 test "zero initialization verification" {
   let memory = @memory.Memory::make(16, 0)
-  let view : View[Int] = View::from_memory(memory)
+  let view : @memory.View[Int] = @memory.View::from_memory(memory)
   
   // All values should be zero
   inspect(view[0], content="0")
