@@ -3,10 +3,9 @@
   "targets": {
     "view.wasm-gc.mbt": ["wasm-gc"],
     "view.js.mbt": ["js"],
-    "view_moonbit_runtime.mbt": ["wasm","native"],
+    "view_moonbit_runtime.mbt": ["wasm", "native"],
     "moonbit_runtime.wasm.mbt": ["wasm"],
-    "moonbit_runtime.native.mbt": ["native"],
-    
+    "moonbit_runtime.native.mbt": ["native"]
   },
   "native-stub": ["stub.c"]
 }
