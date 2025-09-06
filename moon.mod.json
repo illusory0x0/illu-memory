@@ -1,9 +1,21 @@
 {
-  "name": "username/hello",
+  "name": "illusory0x0/memory",
   "version": "0.1.0",
   "readme": "README.md",
-  "repository": "",
+  "repository": "https://github.com/illusory0x0/illu-memory",
   "license": "Apache-2.0",
-  "keywords": [],
-  "description": ""
+  "keywords": [
+    "memory",
+    "low-level",
+    "bytes",
+    "view",
+    "typed-memory",
+    "binary",
+    "little-endian",
+    "buffer",
+    "system-programming",
+    "performance"
+  ],
+  "description": "Low-level memory operation library providing typed views over raw byte buffers with support for various integer types and endianness control",
+  "source": "."
 }
