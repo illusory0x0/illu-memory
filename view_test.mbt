@@ -153,7 +153,9 @@ test "view type conversion consistency" {
   let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   int_view[0] = -1
   int_view[1] = 0x12345678
-  let uint_view : @memory.View[UInt] = @memory.View::from_memory(int_view.to_memory())
+  let uint_view : @memory.View[UInt] = @memory.View::from_memory(
+    int_view.to_memory(),
+  )
   inspect(uint_view[0], content="4294967295") // -1 as UInt
   inspect(uint_view[1], content="305419896") // 0x12345678
 }
@@ -178,7 +180,9 @@ test "mixed size view operations" {
   let int16_view : @memory.View[Int16] = @memory.View::from_memory(memory)
 
   // Read with Int view (should combine pairs of Int16 values)
-  let int_view : @memory.View[Int] = @memory.View::from_memory(int16_view.to_memory())
+  let int_view : @memory.View[Int] = @memory.View::from_memory(
+    int16_view.to_memory(),
+  )
   inspect(int_view[0], content="1450709556") // 0x56781234 in little-endian
   inspect(int_view[1], content="-285168691") // 0xEF00ABCD in little-endian
 }
