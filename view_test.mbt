@@ -124,10 +124,8 @@ test "view length calculation for different types" {
   let memory32 = @memory.Memory::make(32, 0)
   let int_view : @memory.View[Int] = @memory.View::from_memory(memory32)
   inspect(int_view.length(), content="8") // 32 bytes / 4 bytes per Int
-  let memory32 = @memory.Memory::make(32, 0)
   let int16_view : @memory.View[Int16] = @memory.View::from_memory(memory32)
   inspect(int16_view.length(), content="16") // 32 bytes / 2 bytes per Int16
-  let memory32 = @memory.Memory::make(32, 0)
   let int64_view : @memory.View[Int64] = @memory.View::from_memory(memory32)
   inspect(int64_view.length(), content="4") // 32 bytes / 8 bytes per Int64
 }
