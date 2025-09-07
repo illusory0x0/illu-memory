@@ -23,7 +23,7 @@ const UInt64_elem_size_shift = 3
 
 ///|
 fn load_uint(memory : Memory, index : Int) -> UInt {
-  let byte_index = index * Size_of_UInt
+  let byte_index = index << UInt_elem_size_shift
   let b0 = memory.op_get(byte_index + 0).to_uint() << 0
   let b1 = memory.op_get(byte_index + 1).to_uint() << 8
   let b2 = memory.op_get(byte_index + 2).to_uint() << 16
@@ -33,7 +33,7 @@ fn load_uint(memory : Memory, index : Int) -> UInt {
 
 ///|
 fn store_uint(memory : Memory, index : Int, value : UInt) -> Unit {
-  let byte_index = index * Size_of_UInt
+  let byte_index = index << UInt_elem_size_shift
   memory[byte_index + 0] = (value >> 0).to_byte()
   memory[byte_index + 1] = (value >> 8).to_byte()
   memory[byte_index + 2] = (value >> 16).to_byte()
@@ -42,7 +42,7 @@ fn store_uint(memory : Memory, index : Int, value : UInt) -> Unit {
 
 ///|
 fn load_uint16(memory : Memory, index : Int) -> UInt16 {
-  let byte_index = index * Size_of_UInt16
+  let byte_index = index << UInt16_elem_size_shift
   let b0 = memory.op_get(byte_index + 0).to_uint16() << 0
   let b1 = memory.op_get(byte_index + 1).to_uint16() << 8
   b0 | b1
@@ -50,14 +50,14 @@ fn load_uint16(memory : Memory, index : Int) -> UInt16 {
 
 ///|
 fn store_uint16(memory : Memory, index : Int, value : UInt16) -> Unit {
-  let byte_index = index * Size_of_UInt16
+  let byte_index = index << UInt16_elem_size_shift
   memory[byte_index + 0] = (value >> 0).to_byte()
   memory[byte_index + 1] = (value >> 8).to_byte()
 }
 
 ///|
 fn load_uint64(memory : Memory, index : Int) -> UInt64 {
-  let byte_index = index * Size_of_UInt64
+  let byte_index = index << UInt64_elem_size_shift
   let b0 = memory.op_get(byte_index + 0).to_uint64() << 0
   let b1 = memory.op_get(byte_index + 1).to_uint64() << 8
   let b2 = memory.op_get(byte_index + 2).to_uint64() << 16
@@ -71,7 +71,7 @@ fn load_uint64(memory : Memory, index : Int) -> UInt64 {
 
 ///|
 fn store_uint64(memory : Memory, index : Int, value : UInt64) -> Unit {
-  let byte_index = index * Size_of_UInt64
+  let byte_index = index << UInt64_elem_size_shift
   memory[byte_index + 0] = (value >> 0).to_byte()
   memory[byte_index + 1] = (value >> 8).to_byte()
   memory[byte_index + 2] = (value >> 16).to_byte()

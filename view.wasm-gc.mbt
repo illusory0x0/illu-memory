@@ -28,7 +28,7 @@ pub impl Instruction for UInt with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for UInt with length(view) {
-  view.inner().length() / Size_of_UInt
+  view.inner().length() >> UInt_elem_size_shift
 }
 
 ///|
@@ -49,7 +49,7 @@ pub impl Instruction for Int with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for Int with length(view) {
-  view.inner().length() / Size_of_Int
+  view.inner().length() >> Int_elem_size_shift
 }
 
 ///|
@@ -70,7 +70,7 @@ pub impl Instruction for UInt16 with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for UInt16 with length(view) {
-  view.inner().length() / Size_of_UInt16
+  view.inner().length() >> UInt16_elem_size_shift
 }
 
 ///|
@@ -91,7 +91,7 @@ pub impl Instruction for Int16 with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for Int16 with length(view) {
-  view.inner().length() / Size_of_Int16
+  view.inner().length() >> Int16_elem_size_shift
 }
 
 ///|
@@ -112,7 +112,7 @@ pub impl Instruction for UInt64 with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for UInt64 with length(view) {
-  view.inner().length() / Size_of_UInt64
+  view.inner().length() >> UInt64_elem_size_shift
 }
 
 ///|
@@ -133,5 +133,5 @@ pub impl Instruction for Int64 with to_memory(view) = "%identity"
 
 ///|
 pub impl Instruction for Int64 with length(view) {
-  view.inner().length() / Size_of_Int64
+  view.inner().length() >> Int64_elem_size_shift
 }

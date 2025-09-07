@@ -26,7 +26,7 @@ pub impl Instruction for Int with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Int_elem_size_shift,
-    memory.length() / Size_of_Int,
+    memory.length() >> Int_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -38,7 +38,7 @@ pub impl Instruction for Int with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_Int,
+    view.length() << Int_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
@@ -59,7 +59,7 @@ pub impl Instruction for UInt with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     UInt_elem_size_shift,
-    memory.length() / Size_of_UInt,
+    memory.length() >> UInt_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -71,7 +71,7 @@ pub impl Instruction for UInt with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_UInt,
+    view.length() << UInt_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
@@ -92,7 +92,7 @@ pub impl Instruction for UInt16 with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     UInt16_elem_size_shift,
-    memory.length() / Size_of_UInt16,
+    memory.length() >> UInt16_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -104,7 +104,7 @@ pub impl Instruction for UInt16 with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_UInt16,
+    view.length() << UInt16_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
@@ -125,7 +125,7 @@ pub impl Instruction for Int16 with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Int16_elem_size_shift,
-    memory.length() / Size_of_Int16,
+    memory.length() >> Int16_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -137,7 +137,7 @@ pub impl Instruction for Int16 with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_Int16,
+    view.length() << Int16_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
@@ -158,7 +158,7 @@ pub impl Instruction for Int64 with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Int64_elem_size_shift,
-    memory.length() / Size_of_Int64,
+    memory.length() >> Int64_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -170,7 +170,7 @@ pub impl Instruction for Int64 with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_Int64,
+    view.length() << Int64_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
@@ -191,7 +191,7 @@ pub impl Instruction for UInt64 with from_memory(memory) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     UInt64_elem_size_shift,
-    memory.length() / Size_of_UInt64,
+    memory.length() >> UInt64_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_memory_to_view(memory)
@@ -203,7 +203,7 @@ pub impl Instruction for UInt64 with to_memory(view) {
   let header = moonbit_make_array_header(
     Moonbit_BLOCK_KIND_VAL_ARRAY,
     Byte_elem_size_shift,
-    view.length() * Size_of_UInt64,
+    view.length() << UInt64_elem_size_shift,
   )
   moonbit_set_array_header(ptr, header)
   unsafe_view_to_memory(view)
