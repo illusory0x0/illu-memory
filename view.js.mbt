@@ -227,7 +227,7 @@ pub impl Instruction for Int64 with to_memory(view) {
 ///|
 pub impl Instruction for Int64 with length(view) {
   let view32 = unsafe_view_int64_to_view_int(view)
-  View::length_int32(view32) / 2
+  View::length_int32(view32) >> 1
 }
 
 ///|
