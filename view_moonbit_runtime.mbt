@@ -11,7 +11,7 @@
 struct View[T](FixedArray[T])
 
 ///|
-pub fn[T : Instruction] View::length(view : View[T]) -> Int  {
+pub fn[T : Instruction] View::length(view : View[T]) -> Int {
   Instruction::length(view)
 }
 
