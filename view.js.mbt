@@ -8,7 +8,7 @@ pub fn[T : Instruction] View::length(view : View[T]) -> Int {
 }
 
 ///|
-extern "js" fn View::from_memory_int32(memory : Memory) -> View[Int] = "(memory) => new Int32Array(memory.buffer)"
+extern "js" fn View::from_memory_int32(memory : Memory) -> View[Int] = "(memory) => new Int32Array(memory.buffer,0,memory.buffer.byteLength >>> 2)"
 
 ///|
 extern "js" fn View::to_memory_int32(view : View[Int]) -> Memory = "(view) => new Uint8Array(view.buffer)"
@@ -23,7 +23,7 @@ extern "js" fn View::load_int32(view : View[Int], index : Int) -> Int = "(view,i
 extern "js" fn View::length_int32(view : View[Int]) -> Int = "(view) => view.length"
 
 ///|
-extern "js" fn View::from_memory_uint32(memory : Memory) -> View[UInt] = "(memory) => new Uint32Array(memory.buffer)"
+extern "js" fn View::from_memory_uint32(memory : Memory) -> View[UInt] = "(memory) => new Uint32Array(memory.buffer,0,memory.buffer.byteLength >>> 2)"
 
 ///|
 extern "js" fn View::to_memory_uint32(view : View[UInt]) -> Memory = "(view) => new Uint8Array(view.buffer)"
@@ -38,7 +38,7 @@ extern "js" fn View::load_uint32(view : View[UInt], index : Int) -> UInt = "(vie
 extern "js" fn View::length_uint32(view : View[UInt]) -> Int = "(view) => view.length"
 
 ///|
-extern "js" fn View::from_memory_int16(memory : Memory) -> View[Int16] = "(memory) => new Int16Array(memory.buffer)"
+extern "js" fn View::from_memory_int16(memory : Memory) -> View[Int16] = "(memory) => new Int16Array(memory.buffer,0,memory.buffer.byteLength >>> 1)"
 
 ///|
 extern "js" fn View::to_memory_int16(view : View[Int16]) -> Memory = "(view) => new Uint8Array(view.buffer)"
@@ -57,7 +57,7 @@ extern "js" fn View::load_int16(view : View[Int16], index : Int) -> Int16 = "(vi
 extern "js" fn View::length_int16(view : View[Int16]) -> Int = "(view) => view.length"
 
 ///|
-extern "js" fn View::from_memory_uint16(memory : Memory) -> View[UInt16] = "(memory) => new Uint16Array(memory.buffer)"
+extern "js" fn View::from_memory_uint16(memory : Memory) -> View[UInt16] = "(memory) => new Uint16Array(memory.buffer,0,memory.buffer.byteLength >>> 1)"
 
 ///|
 extern "js" fn View::to_memory_uint16(view : View[UInt16]) -> Memory = "(view) => new Uint8Array(view.buffer)"
