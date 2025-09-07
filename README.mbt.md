@@ -1,6 +1,8 @@
 # illusory0x0/memory
 
-Low-level memory operation library providing typed views over raw byte buffers with support for various integer types and endianness control. This package offers a `Memory` type for raw byte storage and a generic `View[T]` type for typed access to memory regions.
+Low-level memory operation library providing typed views over raw byte buffers with support for various integer types in little-endian format only. This package offers a `Memory` type for raw byte storage and a generic `View[T]` type for typed access to memory regions.
+
+**Note: This library only supports little-endian byte order and does not provide big-endian operations or endianness control.**
 
 ## Core Components
 
@@ -128,26 +130,29 @@ test "64-bit integer operations" {
 }
 ```
 
-## Memory Layout and Endianness
+## Memory Layout and Little-Endian Format
 
-All data is stored in little-endian format, which is important when working with multi-byte types or interfacing with external systems.
+**Important: This library exclusively uses little-endian byte order.** All multi-byte values are stored and accessed in little-endian format. Big-endian operations and endianness control are not supported.
+
+This design choice ensures consistent behavior across platforms and simplifies the API, making it ideal for applications that work primarily with little-endian data (which includes most modern processors and network protocols).
 
 ```moonbit
-test "little-endian memory layout" {
+test "little-endian memory layout demonstration" {
   let memory = @memory.Memory::make(8, 0)
   let int_view : @memory.View[Int] = @memory.View::from_memory(memory)
   
-  // Store a known value
+  // Store a known value - will always be stored in little-endian
   int_view[0] = 0x12345678
   
   // Convert back to memory to examine individual bytes
   let memory_result = int_view.to_memory()
   
-  // In little-endian: 0x12345678 becomes [0x78, 0x56, 0x34, 0x12]
-  inspect(memory_result[0], content="b'\\x78'")  // 0x78
-  inspect(memory_result[1], content="b'\\x56'")   // 0x56
-  inspect(memory_result[2], content="b'\\x34'")   // 0x34
-  inspect(memory_result[3], content="b'\\x12'")   // 0x12
+  // In little-endian format: 0x12345678 becomes [0x78, 0x56, 0x34, 0x12]
+  // (least significant byte first)
+  inspect(memory_result[0], content="b'\\x78'")  // 0x78 (LSB)
+  inspect(memory_result[1], content="b'\\x56'")  // 0x56
+  inspect(memory_result[2], content="b'\\x34'")  // 0x34
+  inspect(memory_result[3], content="b'\\x12'")  // 0x12 (MSB)
 }
 ```
 
@@ -219,10 +224,16 @@ test "zero initialization verification" {
 
 This package is ideal for:
 
-- **Binary data processing**: Reading and writing binary file formats
-- **Network protocol implementation**: Handling network packets with mixed data types
-- **Embedded systems programming**: Efficient memory usage in resource-constrained environments
-- **Cryptographic operations**: Byte-level manipulation of cryptographic data
-- **Performance-critical applications**: Zero-copy data access patterns
+- **Binary data processing**: Reading and writing little-endian binary file formats
+- **Network protocol implementation**: Handling network packets with mixed data types (most network protocols use little-endian or have endianness specified separately)
+- **Embedded systems programming**: Efficient memory usage in resource-constrained environments with little-endian processors
+- **Cryptographic operations**: Byte-level manipulation of cryptographic data in little-endian format
+- **Performance-critical applications**: Zero-copy data access patterns with consistent little-endian byte order
 
-The combination of raw memory access and typed views provides both flexibility and type safety, making it suitable for system-level programming while maintaining MoonBit's safety guarantees.
+## Limitations
+
+- **Endianness**: Only little-endian byte order is supported. Big-endian operations are not available.
+- **Portability**: Applications requiring big-endian data or endianness conversion should use alternative libraries.
+- **Cross-platform compatibility**: When interfacing with big-endian systems, manual byte order conversion will be required.
+
+The combination of raw memory access and typed views provides both flexibility and type safety, making it suitable for system-level programming while maintaining MoonBit's safety guarantees and consistent little-endian behavior.
